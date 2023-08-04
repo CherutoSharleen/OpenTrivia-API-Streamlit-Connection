@@ -3,6 +3,13 @@ import requests
 import random
 import time
 
+st.set_page_config(
+        page_title='BigBrainTime',
+        page_icon=':brain:',
+        initial_sidebar_state="auto"
+        )
+
+
 def get_questions(amount, category, difficulty):
     parameters = {
         "amount": amount,
@@ -15,8 +22,9 @@ def get_questions(amount, category, difficulty):
     return question_data
 
 def main():
-    st.set_page_config(initial_sidebar_state="auto")
-    st.title("Quiz App")
+    st.header(":brain: Big Brain Time ")
+    
+    
     category_dict = {
         "General Knowledge": 9,
         "Computers": 18,
