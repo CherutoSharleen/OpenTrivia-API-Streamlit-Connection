@@ -1,30 +1,64 @@
-import time
 import streamlit as st
+import requests
+import random
+import time
 
-#Page set Up
-st.set_page_config(
-    page_title='BigBrainTime',
-    page_icon=':brain:'
-)
+def get_questions(amount, category, difficulty):
+    parameters = {
+        "amount": amount,
+        "type": "multiple",
+        "category": category,
+        "difficulty": difficulty
+    }
+    response = requests.get(url='https://opentdb.com/api.php', params=parameters)
+    question_data = response.json()["results"]
+    return question_data
 
+def main():
+    st.set_page_config(initial_sidebar_state="auto")
+    st.title("Quiz App")
+    category_dict = {
+        "General Knowledge": 9,
+        "Computers": 18,
+        "Science": 17,
+        # Add more categories and their corresponding numbers here
+    }
 
-st.header(":brain: Big Brain Time ")
-answer = st.radio("Who is the most famous Actor?", ['Joy', 'Jewel', 'Apartment'])
-submit_btn = st.button('Submit')
+    # Sidebar for category and difficulty selection
+    selected_category = st.sidebar.selectbox("Select Category:", list(category_dict.keys()))
+    selected_difficulty = st.sidebar.selectbox("Select Difficulty:", ["easy", "medium", "hard"])
 
-#If a person finishes the quiz and wins
-st.balloons()
+    category = category_dict[selected_category]
+    difficulty = selected_difficulty
 
-#If a person gets a question wrong
-def questionResult(answer):
-    if(answer == Answer):
-        right_msg =st.success('CORRECT!!')
-        time.sleep(2) 
-        right_msg.empty()
+    if 'question_index' not in st.session_state:
+        st.session_state.question_index = 0
+        st.session_state.score = 0
+
+    question_data = get_questions(10, category, difficulty)
+
+    if st.session_state.question_index < len(question_data):
+        question = question_data[st.session_state.question_index]
+        st.subheader(f"Question {st.session_state.question_index + 1}: {question['question']}")
+        options = question['incorrect_answers'] + [question['correct_answer']]
+        random.shuffle(options)
+        selected_option = st.radio('Select the correct option:', options)
+
+        submit_button = st.button("Submit")
+        if submit_button:
+            if selected_option == question['correct_answer']:
+                st.success('CORRECT!!')
+                st.session_state.score += 1
+            else:
+                st.error('Wrong Answer')
+
+            st.write("---")
+            st.session_state.question_index += 1
+
     else:
-        wrong_msg =st.error('Wrong Answer')
-        time.sleep(3) 
-        wrong_msg.empty()
+        st.subheader("Quiz Completed!")
+        st.balloons()
+        st.header(f"Your final score is: {st.session_state.score}/{len(question_data)}")
 
-
-
+if __name__ == "__main__":
+    main()

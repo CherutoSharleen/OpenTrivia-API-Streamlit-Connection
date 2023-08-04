@@ -1,1 +1,57 @@
-<h1> Spotify Streamlit Connections
+# OpenTrivia API Streamlit Experimental Quiz App 🚀
+
+![Quiz App](quiz_app_screenshot.png)
+
+Welcome to the Streamlit Experimental Quiz App! 🎉 Test your knowledge with 10 fun trivia questions on general knowledge. Get ready to challenge yourself and have some quiz-tastic fun! 🧠💡
+
+## How to Run the Quiz App 🏃‍♂️
+
+1. Install the required dependencies by running the following command in your terminal:
+
+   ```
+   pip install streamlit requests
+   ```
+
+2. Clone this repository:
+
+   ```
+   git clone https://github.com/your_username/streamlit-experimental-quiz.git
+   ```
+
+3. Navigate to the project directory:
+
+   ```
+   cd streamlit-experimental-quiz
+   ```
+
+4. Run the Streamlit app:
+
+   ```
+   streamlit run quiz_app.py
+   ```
+
+5. The app will open in your default web browser. Start the quiz and enjoy! 🎉
+
+## How the Quiz App Works 🤔
+
+1. The app fetches 10 trivia questions from the Open Trivia API. Each question has multiple-choice answers.
+
+2. You will be presented with one question at a time, and you can choose your answer from the options provided.
+
+3. After selecting an answer, the app will provide instant feedback on whether your answer is correct or not. 🤞
+
+4. Your score will be calculated based on the number of correct answers you provide.
+
+5. At the end of the quiz, the app will display your final score. Aim for a perfect 10/10! 🏆
+
+## Screenshots 📷
+
+![Question 1](quiz_question_1.png)
+![Question 2](quiz_question_2.png)
+![Final Score](quiz_final_score.png)
+
+## Feedback and Contributions 🙌
+
+We love feedback! If you have any suggestions or encounter any issues while using the app, please feel free to create an issue or submit a pull request in this repository.
+
+Happy quizzing! 🎯🌟
